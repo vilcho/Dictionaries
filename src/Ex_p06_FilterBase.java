@@ -1,4 +1,3 @@
-import com.sun.org.apache.bcel.internal.classfile.SourceFile;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -34,43 +33,56 @@ public class Ex_p06_FilterBase {
             input = scanner.nextLine();
         }
 
-         input = scanner.nextLine();
+        input = scanner.nextLine().toLowerCase();
         switch (input) {
-            case "Position":
+            case "position":
                 for (Map.Entry<String, String> kvp : position.entrySet()) {
                     System.out.printf("Name: %s%nPosition: %s%n====================%n", kvp.getKey(), kvp.getValue());
                 }
                 break;
-            case "Age":
+            case "age":
                 for (Map.Entry<String, Integer> kvp : age.entrySet()) {
                     System.out.printf("Name: %s%nAge: %d%n===================%n", kvp.getKey(), kvp.getValue());
+
                 }
                 break;
-            case "Salary":
+            case "salary":
                 for (Map.Entry<String, Double> kvp : salary.entrySet()) {
                     System.out.printf("Name: %s%nSalary: %.2f%n====================%n", kvp.getKey(), kvp.getValue());
                 }
                 break;
         }
+
     }
 
     static boolean determineIfEntryIsSalary(String secondInput) {
-        boolean isEntrySalary = true;
+        boolean isEntrySalary = false;
         char[] charSecondPart = secondInput.toCharArray();
+        int countPoints = 0;
         for (int i = 0; i < charSecondPart.length; i++) {
-            if (!((charSecondPart[i] >= 48 && charSecondPart[i] <= 57) || charSecondPart[i] == '.')) {
+            if (((charSecondPart[i] >= 48 && charSecondPart[i] <= 57) || charSecondPart[i] == '.')) {
+                isEntrySalary = true;
+                if (charSecondPart[i] == '.'){
+                    countPoints++;
+                }
+            } else {
                 isEntrySalary = false;
                 break;
             }
+        }
+        if (countPoints>1){
+            isEntrySalary = false;
         }
         return isEntrySalary;
     }
 
     static boolean determineIfEntryIsAge(String secondInput) {
-        boolean isEntryAge = true;
+        boolean isEntryAge = false;
         char[] charSecondPart = secondInput.toCharArray();
         for (int i = 0; i < charSecondPart.length; i++) {
-            if (!(charSecondPart[i] >= 48 && charSecondPart[i] <= 57)) {
+            if ((charSecondPart[i] >= 48 && charSecondPart[i] <= 57)) {
+                isEntryAge = true;
+            } else {
                 isEntryAge = false;
                 break;
             }
